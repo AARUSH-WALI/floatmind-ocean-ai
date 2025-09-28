@@ -2,41 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* FloatMind AI Ocean Intelligence Platform Design System
+Ocean-inspired professional design with deep blues, teals, and fluid gradients
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Ocean-inspired color palette */
+    --background: 220 25% 6%;
+    --foreground: 200 20% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 20% 8%;
+    --card-foreground: 200 15% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 20% 8%;
+    --popover-foreground: 200 15% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Deep ocean primary */
+    --primary: 220 60% 15%;
+    --primary-foreground: 200 20% 98%;
+    --primary-glow: 200 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Teal secondary */
+    --secondary: 190 70% 45%;
+    --secondary-foreground: 220 25% 6%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted ocean tones */
+    --muted: 220 15% 12%;
+    --muted-foreground: 200 10% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Bright cyan accent */
+    --accent: 185 100% 60%;
+    --accent-foreground: 220 25% 6%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 200 20% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 15%;
+    --input: 220 15% 12%;
+    --ring: 185 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Ocean gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(220 60% 15%) 0%, hsl(200 80% 25%) 50%, hsl(185 100% 60%) 100%);
+    --gradient-depth: linear-gradient(180deg, hsl(220 25% 6%) 0%, hsl(220 35% 12%) 100%);
+    --gradient-wave: linear-gradient(90deg, hsl(185 100% 60%) 0%, hsl(200 80% 50%) 50%, hsl(220 60% 40%) 100%);
+    
+    /* Shadows with ocean glow */
+    --shadow-ocean: 0 10px 30px -5px hsl(185 100% 60% / 0.3);
+    --shadow-depth: 0 20px 40px -10px hsl(220 60% 15% / 0.5);
+    --shadow-glow: 0 0 40px hsl(185 100% 60% / 0.4);
+
+    /* Animations */
+    --transition-wave: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +122,66 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Ocean-specific animations */
+  @keyframes wave {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    25% { transform: translateX(5px) translateY(-5px) rotate(1deg); }
+    50% { transform: translateX(-5px) translateY(-10px) rotate(-1deg); }
+    75% { transform: translateX(-5px) translateY(-5px) rotate(1deg); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: var(--shadow-ocean); }
+    50% { box-shadow: var(--shadow-glow); }
+  }
+}
+
+@layer components {
+  /* Ocean utility classes */
+  .ocean-gradient {
+    background: var(--gradient-ocean);
+  }
+  
+  .depth-gradient {
+    background: var(--gradient-depth);
+  }
+  
+  .wave-gradient {
+    background: var(--gradient-wave);
+  }
+  
+  .ocean-glow {
+    box-shadow: var(--shadow-ocean);
+  }
+  
+  .depth-shadow {
+    box-shadow: var(--shadow-depth);
+  }
+  
+  .wave-animation {
+    animation: wave 6s ease-in-out infinite;
+  }
+  
+  .float-animation {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .glow-animation {
+    animation: glow 3s ease-in-out infinite;
+  }
+  
+  .transition-wave {
+    transition: var(--transition-wave);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
   }
 }

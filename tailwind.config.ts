@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -58,6 +59,16 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      backgroundImage: {
+        "ocean-gradient": "var(--gradient-ocean)",
+        "depth-gradient": "var(--gradient-depth)",
+        "wave-gradient": "var(--gradient-wave)",
+      },
+      boxShadow: {
+        "ocean": "var(--shadow-ocean)",
+        "depth": "var(--shadow-depth)",
+        "glow": "var(--shadow-glow)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -80,10 +91,27 @@ export default {
             height: "0",
           },
         },
+        "wave": {
+          "0%, 100%": { transform: "translateX(0) translateY(0) rotate(0deg)" },
+          "25%": { transform: "translateX(5px) translateY(-5px) rotate(1deg)" },
+          "50%": { transform: "translateX(-5px) translateY(-10px) rotate(-1deg)" },
+          "75%": { transform: "translateX(-5px) translateY(-5px) rotate(1deg)" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "glow": {
+          "0%, 100%": { boxShadow: "var(--shadow-ocean)" },
+          "50%": { boxShadow: "var(--shadow-glow)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wave": "wave 6s ease-in-out infinite",
+        "float": "float 4s ease-in-out infinite",
+        "glow": "glow 3s ease-in-out infinite",
       },
     },
   },
