@@ -14,7 +14,101 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string | null
+          created_at: string
+          id: string
+          role: string
+        }
+        Insert: {
+          content: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          role: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string | null
+          created_at?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ocean_floats: {
+        Row: {
+          created_at: string
+          depth: number | null
+          float_id: string
+          id: string
+          last_updated: string
+          latitude: number
+          longitude: number
+          salinity: number | null
+          status: string | null
+          temperature: number | null
+        }
+        Insert: {
+          created_at?: string
+          depth?: number | null
+          float_id: string
+          id?: string
+          last_updated?: string
+          latitude: number
+          longitude: number
+          salinity?: number | null
+          status?: string | null
+          temperature?: number | null
+        }
+        Update: {
+          created_at?: string
+          depth?: number | null
+          float_id?: string
+          id?: string
+          last_updated?: string
+          latitude?: number
+          longitude?: number
+          salinity?: number | null
+          status?: string | null
+          temperature?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
