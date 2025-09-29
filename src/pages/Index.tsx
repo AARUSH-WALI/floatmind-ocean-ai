@@ -31,22 +31,22 @@ const Index = () => {
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
               <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-2 mx-auto">
-                <TabsTrigger value="map" className="flex items-center gap-2">
-                  <Map className="w-4 h-4" />
-                  Ocean Map
-                </TabsTrigger>
                 <TabsTrigger value="dashboard" className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4" />
                   Dashboard
                 </TabsTrigger>
+                <TabsTrigger value="map" className="flex items-center gap-2">
+                  <Map className="w-4 h-4" />
+                  Ocean Map
+                </TabsTrigger>
               </TabsList>
-
-              <TabsContent value="map">
-                <OceanMap />
-              </TabsContent>
 
               <TabsContent value="dashboard">
                 <Dashboard />
+              </TabsContent>
+
+              <TabsContent value="map">
+                <OceanMap />
               </TabsContent>
             </Tabs>
           </div>

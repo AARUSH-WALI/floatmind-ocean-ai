@@ -104,23 +104,25 @@ const Hero = ({ onViewDashboard }: HeroProps) => {
             ))}
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
-            {[
-              { value: "50M+", label: "Data Points" },
-              { value: "24/7", label: "Real-time" },
-              { value: "15+", label: "Languages" },
-              { value: "99.9%", label: "Accuracy" }
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold bg-wave-gradient bg-clip-text text-transparent mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+          {/* Example Queries Section */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <h3 className="text-xl font-semibold mb-4 text-center">Example Queries</h3>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {[
+                "Plot salinity near the equator for March 2024",
+                "Compare BGC parameters in the Arabian Sea",
+                "Show recent float trajectories"
+              ].map((query, index) => (
+                <Link key={index} to="/chat">
+                  <Button
+                    variant="outline"
+                    className="border-accent/30 hover:bg-accent/10 hover:border-accent transition-wave"
+                  >
+                    {query}
+                  </Button>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

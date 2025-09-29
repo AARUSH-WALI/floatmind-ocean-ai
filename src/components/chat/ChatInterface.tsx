@@ -3,9 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Bot, User, Download, Sparkles } from "lucide-react";
+import { Send, Bot, User, Download, Sparkles, Mic, Languages } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface Message {
   id: string;
@@ -19,6 +26,8 @@ const ChatInterface = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -224,6 +233,22 @@ const ChatInterface = () => {
     "Detect anomalies in recent ocean data"
   ];
 
+  const handleVoiceChat = () => {
+    setIsRecording(!isRecording);
+    toast.success(isRecording ? "Voice Recording Stopped" : "Voice Recording Started");
+  };
+
+  const languages = [
+    { value: "en", label: "English" },
+    { value: "es", label: "Español" },
+    { value: "fr", label: "Français" },
+    { value: "de", label: "Deutsch" },
+    { value: "zh", label: "中文" },
+    { value: "ja", label: "日本語" },
+    { value: "ar", label: "العربية" },
+    { value: "hi", label: "हिन्दी" },
+  ];
+
   return (
     <Card className="h-[600px] flex flex-col bg-card/50 backdrop-blur-sm border-border/50">
       {/* Header */}
@@ -232,15 +257,30 @@ const ChatInterface = () => {
           <Bot className="w-5 h-5 text-accent" />
           <h3 className="font-semibold">FloatMind AI Chat</h3>
         </div>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={startNewChat}
-          className="gap-2"
-        >
-          <Sparkles className="w-4 h-4" />
-          New Chat
-        </Button>
+        <div className="flex items-center gap-2">
+          <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+            <SelectTrigger className="w-[140px] h-8 border-accent/30">
+              <Languages className="w-4 h-4 mr-1" />
+              <SelectValue placeholder="Language" />
+            </SelectTrigger>
+            <SelectContent>
+              {languages.map((lang) => (
+                <SelectItem key={lang.value} value={lang.value}>
+                  {lang.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={startNewChat}
+            className="gap-2"
+          >
+            <Sparkles className="w-4 h-4" />
+            New Chat
+          </Button>
+        </div>
       </div>
 
       {/* Messages */}
@@ -335,22 +375,35 @@ const ChatInterface = () => {
 
       {/* Input */}
       <div className="p-4 border-t border-border/50">
-        <div className="flex space-x-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about ocean data, ARGO floats, climate patterns..."
-            className="flex-1 bg-background/50 border-border/50 focus:border-accent"
-            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-            disabled={isLoading}
-          />
-          <Button 
-            onClick={handleSend} 
-            disabled={isLoading || !input.trim()}
-            className="bg-ocean-gradient hover:shadow-ocean transition-wave"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
+        <div className="space-y-2">
+          <div className="flex space-x-2">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask about ocean data, ARGO floats, climate patterns..."
+              className="flex-1 bg-background/50 border-border/50 focus:border-accent"
+              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
+              disabled={isLoading}
+            />
+            <Button 
+              onClick={handleSend} 
+              disabled={isLoading || !input.trim()}
+              className="bg-ocean-gradient hover:shadow-ocean transition-wave"
+            >
+              <Send className="w-4 h-4" />
+            </Button>
+          </div>
+          <div className="flex justify-start">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleVoiceChat}
+              className={`border-accent/30 hover:bg-accent/10 ${isRecording ? 'bg-red-500/10 border-red-500/30' : ''}`}
+            >
+              <Mic className={`w-4 h-4 mr-2 ${isRecording ? 'text-red-500 animate-pulse' : ''}`} />
+              {isRecording ? 'Recording...' : 'Voice Chat'}
+            </Button>
+          </div>
         </div>
       </div>
     </Card>

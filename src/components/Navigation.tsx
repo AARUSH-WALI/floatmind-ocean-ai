@@ -8,7 +8,7 @@ const Navigation = () => {
 
   const navItems = [
     { icon: MessageSquare, label: "AI Chat", href: "/chat", isExternal: true },
-    { icon: BarChart3, label: "Dashboard", href: "#dashboard", isExternal: false },
+    { icon: BarChart3, label: "Dashboard", href: "/", isExternal: true },
     { icon: Fish, label: "Fisheries", href: "#fisheries", isExternal: false },
     { icon: CloudRain, label: "Climate", href: "#climate", isExternal: false },
     { icon: AlertTriangle, label: "Disasters", href: "#disasters", isExternal: false },
