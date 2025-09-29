@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Waves, Brain, Database, TrendingUp } from "lucide-react";
 
-const Hero = () => {
+interface HeroProps {
+  onStartChat: () => void;
+  onViewDashboard: () => void;
+}
+
+const Hero = ({ onStartChat, onViewDashboard }: HeroProps) => {
   const features = [
     {
       icon: Brain,
@@ -61,6 +66,7 @@ const Hero = () => {
               <Button 
                 size="lg" 
                 className="bg-ocean-gradient hover:shadow-ocean transition-wave text-lg px-8 py-6 font-semibold group"
+                onClick={onStartChat}
               >
                 Start AI Chat
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-smooth" />
@@ -69,6 +75,7 @@ const Hero = () => {
                 variant="outline" 
                 size="lg" 
                 className="border-accent/30 hover:bg-accent/10 hover:border-accent transition-wave text-lg px-8 py-6"
+                onClick={onViewDashboard}
               >
                 View Dashboard
               </Button>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ChatInterface from "@/components/chat/ChatInterface";
@@ -7,10 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MessageCircle, Map, BarChart3 } from "lucide-react";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("chat");
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <Hero />
+      <Hero onStartChat={() => setActiveTab("chat")} onViewDashboard={() => setActiveTab("dashboard")} />
       
       {/* Main Interface with Tabs */}
       <section className="py-20 bg-depth-gradient">
@@ -27,7 +30,7 @@ const Index = () => {
               </p>
             </div>
 
-            <Tabs defaultValue="chat" className="space-y-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
               <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3 mx-auto">
                 <TabsTrigger value="chat" className="flex items-center gap-2">
                   <MessageCircle className="w-4 h-4" />
