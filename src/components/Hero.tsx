@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Waves, Brain, Database, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface HeroProps {
-  onStartChat: () => void;
   onViewDashboard: () => void;
 }
 
-const Hero = ({ onStartChat, onViewDashboard }: HeroProps) => {
+const Hero = ({ onViewDashboard }: HeroProps) => {
   const features = [
     {
       icon: Brain,
@@ -63,14 +63,15 @@ const Hero = ({ onStartChat, onViewDashboard }: HeroProps) => {
           {/* CTA Buttons */}
           <div className="mb-16">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
-                size="lg" 
-                className="bg-ocean-gradient hover:shadow-ocean transition-wave text-lg px-8 py-6 font-semibold group"
-                onClick={onStartChat}
-              >
-                Start AI Chat
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-smooth" />
-              </Button>
+              <Link to="/chat">
+                <Button 
+                  size="lg" 
+                  className="bg-ocean-gradient hover:shadow-ocean transition-wave text-lg px-8 py-6 font-semibold group"
+                >
+                  Start AI Chat
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-smooth" />
+                </Button>
+              </Link>
               <Button 
                 variant="outline" 
                 size="lg" 

@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, MessageSquare, BarChart3, Fish, CloudRain, AlertTriangle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { icon: MessageSquare, label: "AI Chat", href: "#chat" },
-    { icon: BarChart3, label: "Dashboard", href: "#dashboard" },
-    { icon: Fish, label: "Fisheries", href: "#fisheries" },
-    { icon: CloudRain, label: "Climate", href: "#climate" },
-    { icon: AlertTriangle, label: "Disasters", href: "#disasters" },
+    { icon: MessageSquare, label: "AI Chat", href: "/chat", isExternal: true },
+    { icon: BarChart3, label: "Dashboard", href: "#dashboard", isExternal: false },
+    { icon: Fish, label: "Fisheries", href: "#fisheries", isExternal: false },
+    { icon: CloudRain, label: "Climate", href: "#climate", isExternal: false },
+    { icon: AlertTriangle, label: "Disasters", href: "#disasters", isExternal: false },
   ];
 
   return (
@@ -35,15 +36,28 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-smooth"
-              >
-                <item.icon className="w-4 h-4 mr-2" />
-                {item.label}
-              </Button>
+              item.isExternal ? (
+                <Link key={index} to={item.href}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-smooth"
+                  >
+                    <item.icon className="w-4 h-4 mr-2" />
+                    {item.label}
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  key={index}
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground hover:text-accent hover:bg-accent/10 transition-smooth"
+                >
+                  <item.icon className="w-4 h-4 mr-2" />
+                  {item.label}
+                </Button>
+              )
             ))}
           </div>
 
@@ -70,15 +84,27 @@ const Navigation = () => {
           <div className="md:hidden py-4 border-t border-border animate-in slide-in-from-top-2">
             <div className="flex flex-col space-y-2">
               {navItems.map((item, index) => (
-                <Button
-                  key={index}
-                  variant="ghost"
-                  className="justify-start text-muted-foreground hover:text-accent hover:bg-accent/10"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <item.icon className="w-4 h-4 mr-3" />
-                  {item.label}
-                </Button>
+                item.isExternal ? (
+                  <Link key={index} to={item.href} onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-muted-foreground hover:text-accent hover:bg-accent/10"
+                    >
+                      <item.icon className="w-4 h-4 mr-3" />
+                      {item.label}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    className="justify-start text-muted-foreground hover:text-accent hover:bg-accent/10"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <item.icon className="w-4 h-4 mr-3" />
+                    {item.label}
+                  </Button>
+                )
               ))}
               <Button className="mt-4 bg-ocean-gradient hover:shadow-ocean transition-wave">
                 Get Started
